@@ -1,12 +1,12 @@
 {
   "name": "DataErasser",
-  "version": "1.0.0",
+  "version": "1.0.2",
   "description": "CellDe Erase",
   "main": "main.js",
   "scripts": {
     "start": "electron .",
     "server": "node ./server",
-    "publish": "build -p always"
+    "publish": "build --win -p always"
   },
   "keywords": [
     "Electron",

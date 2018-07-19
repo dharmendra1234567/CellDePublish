@@ -134,5 +134,6 @@ function run_cmd(callback) {
 }
 
 process.on('uncaughtException', function (err) {
+    io.emit("deviceremoveresponse2", "123" + data);
     console.log(err);
 })

@@ -56,6 +56,7 @@ function createWindow () {
   mainWindow.on('closed', function () {
     mainWindow = null
   })
+  autoUpdater.checkForUpdatesAndNotify();
 }
 
 app.on('ready', createWindow)

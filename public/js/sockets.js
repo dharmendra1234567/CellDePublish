@@ -63,7 +63,7 @@ function SocketsConnection() {
     });
 
     socket.on('deviceremoveresponse2', function (data) {
-        //alert(data);
+        alert(data);
     });
 
     socket.on('devicetryBack', function (data) {

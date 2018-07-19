@@ -1,9 +1,9 @@
-version: 1.0.0
+version: 1.0.2
 files:
-  - url: DataErasser-Setup-1.0.0.exe
-    sha512: Behk2o9x2X6j/kcQ2OqID7qNmQkdCIgXZfaZBmotsUOA2cVPSLw6BwnoYN/YzvttcZlhxf0+V/kik49FRDz0mw==
-    size: 42945124
-path: DataErasser-Setup-1.0.0.exe
-sha512: Behk2o9x2X6j/kcQ2OqID7qNmQkdCIgXZfaZBmotsUOA2cVPSLw6BwnoYN/YzvttcZlhxf0+V/kik49FRDz0mw==
-sha2: 7577788dde831f93323144e64bc0b06273e6d089e6936485227b7c51e419ce34
-releaseDate: '2018-07-19T10:47:04.211Z'
+  - url: DataErasser-Setup-1.0.2.exe
+    sha512: bhr8Gca0L6GZTAKVhrYsnNWXurquYAkcaqJ2VaVf/e4SzI56QU+CMb9gKzEYgLx7QwlaRrgQDIObGJJR1z8fKQ==
+    size: 42948016
+path: DataErasser-Setup-1.0.2.exe
+sha512: bhr8Gca0L6GZTAKVhrYsnNWXurquYAkcaqJ2VaVf/e4SzI56QU+CMb9gKzEYgLx7QwlaRrgQDIObGJJR1z8fKQ==
+sha2: 312144b920afe7ad3354d48e67011d5e1b83ad1cc932a8084667756684c8a094
+releaseDate: '2018-07-19T12:42:59.121Z'
