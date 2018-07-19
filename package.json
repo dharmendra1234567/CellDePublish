@@ -1,0 +1,58 @@
+{
+  "name": "DataErasser",
+  "version": "1.0.0",
+  "description": "CellDe Erase",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron .",
+    "server": "node ./server",
+    "publish": "build -p always"
+  },
+  "keywords": [
+    "Electron",
+    "quick",
+    "start",
+    "tutorial",
+    "demo"
+  ],
+  "author": "GitHub",
+  "license": "CC0-1.0",
+  "devDependencies": {
+    "electron": "^2.0.0",
+    "electron-builder": "^20.19.2",
+    "electron-packager": "^12.1.0",
+    "electron-rebuild": "^1.8.1",
+    "electron-winstaller": "^2.6.4"
+  },
+  "dependencies": {
+    "adb-cli": "0.0.1",
+    "adbkit": "^2.11.0",
+    "child_process": "^1.0.2",
+    "electron-log": "^2.2.16",
+    "electron-squirrel-startup": "^1.0.0",
+    "electron-updater": "^3.0.3",
+    "express": "^4.16.3",
+    "get-port": "^3.2.0",
+    "jquery": "^3.3.1",
+    "jsonfile": "^4.0.0",
+    "portfinder": "^1.0.13",
+    "socket.io": "^2.1.1"
+  },
+  "build": {
+    "appId": "com.github.dharmendra1234567.CellDePublish",
+    "mac": {
+      "category": "your.app.category.type",
+      "target": [
+        "zip",
+        "dmg"
+      ]
+    },
+    "publish": [
+      {
+        "provider": "github",
+        "owner": "dharmendra1234567",
+        "repo": "CellDePublish"
+      }
+    ]
+  }
+}

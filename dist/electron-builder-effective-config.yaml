@@ -1,0 +1,14 @@
+directories:
+  output: dist
+  buildResources: build
+appId: com.github.dharmendra1234567.CellDePublish
+mac:
+  category: your.app.category.type
+  target:
+    - zip
+    - dmg
+publish:
+  - provider: github
+    owner: dharmendra1234567
+    repo: CellDePublish
+electronVersion: 2.0.0
