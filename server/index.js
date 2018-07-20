@@ -55,7 +55,7 @@ try {
         })
 
         socket.on(`installApk`, function (_deviceid) {
-            var apk = _path.join(__dirname + '/../Apk/DataEraseApk.apk');
+            var apk = _path.join(__dirname + '/../../../Apk/DataEraseApk.apk');
             try {
 
                 client.install(_deviceid, apk, function (err, _data) {

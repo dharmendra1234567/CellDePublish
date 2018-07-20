@@ -1,4 +1,4 @@
 echo off
 cd adb
-start adb start-server
+adb start-server
 echo

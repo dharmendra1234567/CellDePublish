@@ -155,6 +155,8 @@
           <img src="./public/images/update.png" />
           <br/>
           <span class="spnMessage"> New update is available </span>
+          <meter style="width:100%" value="0" max="100" id="mtrDownload"></meter>
+          <span class="spnMessage" id="spnMessagedownloading"> Downloading updates </span>
         </div>
 
         <!-- Modal footer -->
@@ -168,6 +170,23 @@
   <!-- jQuery -->
   <script>
     window.$ = window.jQuery = require('./public/js/jquery.min.js');
+    debugger;
+    const { ipcRenderer } = require('electron');
+    ipcRenderer.on('message', function (event, text) {
+      $('#updateModel').modal({
+        backdrop: 'static',
+        keyboard: false
+      });
+      $('#updateModel').modal('show');
+      if(text=="108")
+      {
+        $("#spnMessagedownloading").html("Downloading Completed. Restart the Application to Apply Updates.");
+      }
+      else{
+        $("#mtrDownload").val(text);
+      }
+      
+    })
   </script>
   <script src="./public/js/jquery.min.js"></script>
 
@@ -181,14 +200,7 @@
   <script src="./public/js/socket.io.js"></script>
   <script src="./public/js/sockets.js"></script>
   <script>
-    const { ipcRenderer } = require('electron');
-    ipcRenderer.on('message', function (event, text) {
-      $('#updateModel').modal({
-        backdrop: 'static',
-        keyboard: false
-      });
-      $('#updateModel').modal('show');
-    })
+    
   </script>
 </body>
 

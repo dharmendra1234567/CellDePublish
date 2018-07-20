@@ -52,14 +52,18 @@ require('./server');
 let mainWindow
 function createWindow () {
   mainWindow = new BrowserWindow({width: 1400, height: 800})
-  mainWindow.loadFile('index.html')
+  mainWindow.loadFile('index.html');
+  //mainWindow.webContents.openDevTools();
+  autoUpdater.checkForUpdatesAndNotify();
   mainWindow.on('closed', function () {
     mainWindow = null
   })
-  autoUpdater.checkForUpdatesAndNotify();
+ 
 }
 
-app.on('ready', createWindow)
+app.on('ready',function(){
+  createWindow();
+})
 app.on('browser-window-created',function(e,window) {
   //window.setMenu(null);
   })
@@ -71,25 +75,30 @@ app.on('window-all-closed', function () {
 })
 
 autoUpdater.on('checking-for-update', () => {
-  sendStatusToWindow('Checking for update...');
+ // sendStatusToWindow('Checking for update...');
 })
 autoUpdater.on('update-available', (info) => {
-  sendStatusToWindow('Update available.');
+  //sendStatusToWindow('Update available.');
 })
 autoUpdater.on('update-not-available', (info) => {
-  sendStatusToWindow('Update not available.');
+  //sendStatusToWindow('Update not available.');
 })
+
+function sendStatusToWindow(text) {
+  log.info(text);
+  mainWindow.webContents.send('message', text);
+}
 autoUpdater.on('error', (err) => {
-  sendStatusToWindow('Error in auto-updater. ' + err);
+  //sendStatusToWindow('Error in auto-updater. ' + err);
 })
 autoUpdater.on('download-progress', (progressObj) => {
-  let log_message = "Download speed: " + progressObj.bytesPerSecond;
-  log_message = log_message + ' - Downloaded ' + progressObj.percent + '%';
-  log_message = log_message + ' (' + progressObj.transferred + "/" + progressObj.total + ')';
-  sendStatusToWindow(log_message);
+  // let log_message = "Download speed: " + progressObj.bytesPerSecond;
+  // log_message = log_message + ' - Downloaded ' + progressObj.percent + '%';
+  // log_message = log_message + ' (' + progressObj.transferred + "/" + progressObj.total + ')';
+  sendStatusToWindow(progressObj.percent);
 })
 autoUpdater.on('update-downloaded', (info) => {
-  sendStatusToWindow('Update downloaded');
+  sendStatusToWindow('108');
 });
 
 app.on('activate', function () {
