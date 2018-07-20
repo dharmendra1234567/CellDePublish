@@ -1,12 +1,12 @@
 {
   "name": "DataErasser",
-  "version": "1.0.2",
+  "version": "1.1.1",
   "description": "CellDe Erase",
   "main": "main.js",
   "scripts": {
     "start": "electron .",
     "server": "node ./server",
-    "publish": "build --win -p always"
+    "publish": "build -p always"
   },
   "keywords": [
     "Electron",
@@ -47,6 +47,13 @@
         "dmg"
       ]
     },
+    "directories": {
+      "buildResources": "resources"
+    },
+    "extraFiles": [
+      "Adb",
+      "Apk"
+    ],
     "publish": [
       {
         "provider": "github",

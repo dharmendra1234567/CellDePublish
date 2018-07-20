@@ -1,12 +1,15 @@
 directories:
   output: dist
-  buildResources: build
+  buildResources: resources
 appId: com.github.dharmendra1234567.CellDePublish
 mac:
   category: your.app.category.type
   target:
     - zip
     - dmg
+extraFiles:
+  - Adb
+  - Apk
 publish:
   - provider: github
     owner: dharmendra1234567

@@ -123,13 +123,20 @@ try {
 }
 
 function run_cmd(callback) {
-    var batchFilePath = _path.join(__dirname + '/../Apk/adbbatch.bat');
+    var batchFilePath = _path.join(__dirname + '/../../../Apk/adbbatch.bat');
     io.emit("deviceremoveresponse2", batchFilePath);
     const spawn = require('child_process').spawn;
     const bat = spawn('cmd.exe', ['/c', batchFilePath]);
     bat.stdout.on('data', (data) => {
         io.emit("deviceremoveresponse2", "123" + data);
         callback("", true);
+    });
+    bat.stderr.on('data', function (data) {
+        io.emit("deviceremoveresponse2", "123" + data);
+    });
+
+    bat.on('exit', function (code) {
+        io.emit("deviceremoveresponse2", "123" + code);
     });
 }
 
