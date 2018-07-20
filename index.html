@@ -161,7 +161,7 @@
 
         <!-- Modal footer -->
         <div class="modal-footer">
-          <button type="button" class="btn btn-success">Download</button>
+          <!-- <button type="button" class="btn btn-success">Download</button> -->
         </div>
 
       </div>
@@ -173,6 +173,7 @@
     debugger;
     const { ipcRenderer } = require('electron');
     ipcRenderer.on('message', function (event, text) {
+      debugger;
       $('#updateModel').modal({
         backdrop: 'static',
         keyboard: false
@@ -180,10 +181,12 @@
       $('#updateModel').modal('show');
       if(text=="108")
       {
+        $("#mtrDownload").val(100);
         $("#spnMessagedownloading").html("Downloading Completed. Restart the Application to Apply Updates.");
       }
       else{
-        $("#spnMessagedownloading").html(text);
+       // $("#spnMessagedownloading").html(text);
+       debugger;
         var data = parseInt(text)
         $("#mtrDownload").val(data);
       }
