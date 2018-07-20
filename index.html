@@ -183,7 +183,9 @@
         $("#spnMessagedownloading").html("Downloading Completed. Restart the Application to Apply Updates.");
       }
       else{
-        $("#mtrDownload").val(text);
+        $("#spnMessagedownloading").html(text);
+        var data = parseInt(text)
+        $("#mtrDownload").val(data);
       }
       
     })
