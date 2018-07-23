@@ -53,7 +53,7 @@ let mainWindow
 function createWindow () {
   mainWindow = new BrowserWindow({width: 1400, height: 800})
   mainWindow.loadFile('index.html');
-  mainWindow.webContents.openDevTools();
+  //mainWindow.webContents.openDevTools();
   autoUpdater.checkForUpdatesAndNotify();
   mainWindow.on('closed', function () {
     mainWindow = null
