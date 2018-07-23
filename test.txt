@@ -1,0 +1,161 @@
+
+var FCM = require('fcm-node');
+
+router.post('/:ecode/:password', function (req, res, next) {
+    var _sp = "sp_getfirebaseToken";
+    var _parameters = [{
+            name: 'ecode',
+            value: req.params.ecode.trim()
+        },
+        {
+            name: 'password',
+            value: cryptr.encrypt(req.params.password.trim())
+        }
+    ];
+    datalayer.executeProcedureWithParameters(_sp, _parameters, function (_err, _result) {
+        var resultdata = {};
+        if (_result) {
+            var dataresult = {};
+            if (_result.recordset !== undefined) {
+                var ids = _result.recordset[0].List_Output;
+                if (ids !== null || ids !== "") {
+                    var ids2 = ids.split(/\s*,\s*/);
+                }
+                var message = {
+                    registration_ids: ids2,
+                    data: {
+                        title: req.body.title,
+                        message: req.body.message,
+                        ecode: '',
+                        image: '',
+                    },
+                    notification: {
+                        body: req.body.message,
+                        mutable_content: true,
+                        title: req.body.title
+                    }
+                }
+
+                fcm.send(message, function (__err, __response) {
+                    // if (__err) {
+                    //     res.send(error.errorMessage);
+                    // } else {
+                    var sp = "sp_insertnotifications";
+                    var parameters = [{
+                            name: 'ecode',
+                            value: req.params.ecode.trim()
+                        },
+                        {
+                            name: 'password',
+                            value: cryptr.encrypt(req.params.password.trim())
+                        },
+                        {
+                            name: 'ecodenotification',
+                            value: req.body.ecode.trim()
+                        },
+                        {
+                            name: 'title',
+                            value: req.body.title.trim()
+                        },
+                        {
+                            name: 'message',
+                            value: req.body.message.trim()
+                        }
+
+                    ];
+                    datalayer.executeProcedureWithParameters(sp, parameters, function (err, result) {
+                        var resultdata = {};
+                        if (result) {
+                            var dataresult = {};
+                            if (result.recordset[0].issuccess) {
+                                dataresult = {
+                                    status: 200,
+                                    message: "OK",
+
+                                    data: result.recordset[0]
+                                }
+                            } else {
+                                dataresult = {
+                                    status: 401,
+                                    message: "Unauthorized user",
+                                    data: result.recordset[0]
+                                }
+                            }
+                            res.send(dataresult);
+                        } else {
+                            res.send(error.errorMessage);
+                        }
+                    });
+                    //}
+                });
+
+            } else {
+                dataresult = {
+                    status: 401,
+                    message: "Unauthorized user"
+                }
+                res.send(dataresult);
+            }
+
+        } else {
+            res.send(error.errorMessage);
+        }
+    });
+
+
+
+
+    //---
+
+
+});
+
+//=========================================================================
+
+CREATE PROCEDURE [dbo].[sp_getfirebaseToken]
+@ecode nvarchar(10),
+@password nvarchar(50)
+AS
+BEGIN
+	SET NOCOUNT ON;
+	IF EXISTS (SELECT top 1 1 from tblusers WHERE ecode = @ecode AND password = @password and isactive = 1 )
+	BEGIN
+		SELECT  top 1
+
+       STUFF((SELECT ', ' + CAST(firebasetoken AS NVARCHAR(MAX) )
+
+         FROM tbllogin where firebasetoken is NOT NULL
+
+         FOR XML PATH(''), TYPE)
+
+        .value('.','NVARCHAR(MAX)'),1,2,' ') List_Output
+
+FROM tbllogin
+--STUFF((SELECT ', ' +''''+ CAST(firebasetoken AS NVARCHAR(MAX) )+'''' 
+	END
+END
+//=========================================================================
+
+CREATE TABLE [dbo].[tblfirebasetoken](
+	[id] [int] IDENTITY(1,1) NOT NULL,
+	[firebasetoken] [nvarchar](max) NULL
+	)
+//==========================================================================
+
+CREATE PROCEDURE [dbo].[sp_addFirebasetoken]
+
+@firebasetoken nvarchar(MAX)
+
+AS
+
+BEGIN
+
+	SET NOCOUNT ON;
+
+	Insert into tblfirebasetoken (firebasetoken) values( @firebasetoken)
+
+END
+
+//==========================================================================
+
+
