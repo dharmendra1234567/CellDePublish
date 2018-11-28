@@ -22,7 +22,7 @@
     <!-- Navigation -->
     <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
       <!-- Brand and toggle get grouped for better mobile display -->
-      <div class="navbar-header">
+      <!-- <div class="navbar-header">
         <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
           <span class="sr-only">Toggle navigation</span>
           <span class="icon-bar"></span>
@@ -30,9 +30,9 @@
           <span class="icon-bar"></span>
         </button>
         <a class="navbar-brand" href="#">CellDe
-          <!-- <img style="float: left; width: 30px; margin-right: 10px;" src="./public/images/logo.png"> -->
+          <img style="float: left; width: 30px; margin-right: 10px;" src="./public/images/logo.png">
         </a>
-      </div>
+      </div> -->
       <!-- Top Menu Items -->
       <!-- <ul class="nav navbar-right top-nav">
         <li class="dropdown">
@@ -83,10 +83,17 @@
           <div class="box-body">
             <div class="row">
               <div class="col-md-12">
-                <div class="col-md-3">
+                <!-- <div class="col-md-3">
                   <img src="./public/images/phone.png" class="thumbnail" width="100%" height="500px" />
-                </div>
-                <div class="col-md-9">
+                </div> -->
+                <div class="col-md-12">
+                    <div class="loadercls">
+                        <div>
+                          <img src="./public/home.jpg" style="width:100%" />
+                        </div>
+                        <!-- <div class="loadingMessage">Try to Connecting. Confirm Device is Connected</div> -->
+                      <!-- </div> -->
+                    </div>
                   <div class="row" id="tblDetails">
                     <div class="col-xs-12">
                       <button class="btn btn-default filter-button btntooltip" onclick="EraseData()" data-toggle="tooltip" data-placement="top"
@@ -108,8 +115,8 @@
                               <th>Storage</th>
                               <th>Free </th>
                               <th>Occupied</th>
-                              <th>Video Storage</th>
-                              <th>Audio Storage</th>
+                              <!-- <th>Video Storage</th>
+                              <th>Audio Storage</th> -->
                               <th>Rooted</th>
                               <th>Memory Card</th>
                               <!-- <th>Chart</th> -->
@@ -132,14 +139,8 @@
       </div>
     </div>
   </section>
-  <div class="overlayloader">
-    <div class="loadercls">
-      <div>
-        <img src="./public/loader.gif" />
-      </div>
-      <!-- <div class="loadingMessage">Try to Connecting. Confirm Device is Connected</div> -->
-    </div>
-  </div>
+  <!-- <div class="overlayloader"> -->
+   
 
   <div class="modal" id="updateModel">
     <div class="modal-dialog">
@@ -175,7 +176,6 @@
     ipcRenderer.on('message', function (event, text) {
       debugger;
       $('#updateModel').modal({
-        backdrop: 'static',
         keyboard: false
       });
       $('#updateModel').modal('show');

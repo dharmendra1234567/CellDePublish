@@ -290,10 +290,11 @@ ul.alert-dropdown {
 }
 
 .loadercls {
-    position: absolute;
+    /* position: absolute;
     bottom: 50% !important;
     right: 50% !important;
-    z-index: 222222222;
+    z-index: 222222222; */
+    text-align: center
 }
 
 .overlayloader {

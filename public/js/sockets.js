@@ -42,7 +42,7 @@ function SocketsConnection() {
         $("#" + data.devicedata.id).remove();
         $("#tblDetails").removeClass('hidecls');
         $(".alertMessage").addClass('hidecls');
-        $(".overlayloader").addClass('hidecls');
+        $(".loadercls").addClass('hidecls');
         var htmlData = `<tr id="${data.devicedata.id}" class="device-tr">
         <td colspan="10">
         <img src='./public/images/30.gif'/><br/>
@@ -83,24 +83,27 @@ function SocketsConnection() {
     });
 
     socket.on('deviceDataResult', function (data) {
+        console.log(data);
         try {
             $("#tblDetails").removeClass('hidecls');
             $(".alertMessage").addClass('hidecls');
             $(".overlayloader").addClass('hidecls');
             var _splitResult = data.split('&');
+            console.log(_splitResult);
             var strData = _splitResult[0].toString().replace('"{', '{') //_splitResult[0].substr(1, _splitResult[0].length - 3);
             strData = strData.toString().replace('}"', '}')
             var result = JSON.parse(strData);
+            console.log(result);
             result.deviceId = _splitResult[1];
 
-            var freepercent = parseFloat(result.freeSpace) / parseFloat(result.totalSpace);
+            var freepercent = parseFloat(result.free) / parseFloat(result.storage);
 
-            if (parseFloat(result.freeSpace) > 1024) {
+            if (parseFloat(result.free) > 1024) {
 
-                result.freeSpace = (parseFloat(result.freeSpace) / 1024).toFixed(2) + " GB";
+                result.free = (parseFloat(result.free) / 1024).toFixed(2) + " GB";
 
             } else {
-                result.freeSpace = result.freeSpace + " MB";
+                result.free = result.free + " MB";
             }
             var videopercent = parseFloat(result.videoSize) / parseFloat(result.totalSpace);
             if (parseFloat(result.videoSize) > 1024) {
@@ -116,13 +119,13 @@ function SocketsConnection() {
             } else {
                 result.audioSize = result.audioSize + " MB";
             }
-            var occupiedpercent = parseFloat(result.occupiedSpace) / parseFloat(result.totalSpace);
-            if (parseFloat(result.occupiedSpace) > 1024) {
-                result.occupiedSpace = (parseFloat(result.occupiedSpace) / 1024).toFixed(2) + " GB";
+            var occupiedpercent = parseFloat(result.occupied) / parseFloat(result.storage);
+            if (parseFloat(result.occupied) > 1024) {
+                result.occupied = (parseFloat(result.occupied) / 1024).toFixed(2) + " GB";
             } else {
-                result.occupiedSpace = result.occupiedSpace + " MB";
+                result.occupied = result.occupied + " MB";
             }
-            result.totalSpace = (parseFloat(result.totalSpace) / 1024).toFixed(2) + " GB";
+            result.storage = (parseFloat(result.storage) / 1024).toFixed(2) + " GB";
             var rooted = "";
             var rootedcolor = "";
             var card = "";
@@ -146,14 +149,12 @@ function SocketsConnection() {
                 `<td id="spn${result.deviceId}" class="spnHide">
                 <img src="./public/images/right.png" style="width:30px;height:30px;"/>
                 </td>
-                <td>${result.Model}</td>
-                    <td> ${result.SerialNumber} 
+                <td>${result.model}</td>
+                    <td> ${result.serial} 
                 </td>
-                    <td>${result.totalSpace}</td>
-                    <td><meter value="${freepercent}" max="1">${freepercent}%</meter><br/> ${result.freeSpace} </td>
-                    <td><meter value="${occupiedpercent}" max="1">${occupiedpercent}%</meter><br/> ${result.occupiedSpace}</td>
-                    <td><meter value="${videopercent}" max="1">${videopercent}%</meter><br/> ${result.videoSize} </td>
-                    <td> <meter value="${audiopercent}" max="1">${audiopercent}%</meter><br/> ${result.audioSize} </td>
+                    <td>${result.storage}</td>
+                    <td><meter value="${freepercent}" max="1">${freepercent}%</meter><br/> ${result.free} </td>
+                    <td><meter value="${occupiedpercent}" max="1">${occupiedpercent}%</meter><br/> ${result.occupied}</td>
                     <td>
                     <img src="${rooted}" style="width:30px;height:30px;"/>
                     </td>

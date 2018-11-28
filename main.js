@@ -51,7 +51,8 @@ function handleSquirrelEvent(application) {
 require('./server');
 let mainWindow
 function createWindow () {
-  mainWindow = new BrowserWindow({width: 1400, height: 800})
+  Menu.setApplicationMenu(null);
+  mainWindow = new BrowserWindow({width: 900, height: 700, resizable: false,  frame: false})
   mainWindow.loadFile('index.html');
   //mainWindow.webContents.openDevTools();
   autoUpdater.checkForUpdatesAndNotify();

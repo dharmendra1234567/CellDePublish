@@ -1,161 +1,190 @@
-
-var FCM = require('fcm-node');
-
-router.post('/:ecode/:password', function (req, res, next) {
-    var _sp = "sp_getfirebaseToken";
-    var _parameters = [{
-            name: 'ecode',
-            value: req.params.ecode.trim()
-        },
-        {
-            name: 'password',
-            value: cryptr.encrypt(req.params.password.trim())
-        }
-    ];
-    datalayer.executeProcedureWithParameters(_sp, _parameters, function (_err, _result) {
-        var resultdata = {};
-        if (_result) {
-            var dataresult = {};
-            if (_result.recordset !== undefined) {
-                var ids = _result.recordset[0].List_Output;
-                if (ids !== null || ids !== "") {
-                    var ids2 = ids.split(/\s*,\s*/);
-                }
-                var message = {
-                    registration_ids: ids2,
-                    data: {
-                        title: req.body.title,
-                        message: req.body.message,
-                        ecode: '',
-                        image: '',
-                    },
-                    notification: {
-                        body: req.body.message,
-                        mutable_content: true,
-                        title: req.body.title
-                    }
-                }
-
-                fcm.send(message, function (__err, __response) {
-                    // if (__err) {
-                    //     res.send(error.errorMessage);
-                    // } else {
-                    var sp = "sp_insertnotifications";
-                    var parameters = [{
-                            name: 'ecode',
-                            value: req.params.ecode.trim()
-                        },
-                        {
-                            name: 'password',
-                            value: cryptr.encrypt(req.params.password.trim())
-                        },
-                        {
-                            name: 'ecodenotification',
-                            value: req.body.ecode.trim()
-                        },
-                        {
-                            name: 'title',
-                            value: req.body.title.trim()
-                        },
-                        {
-                            name: 'message',
-                            value: req.body.message.trim()
-                        }
-
-                    ];
-                    datalayer.executeProcedureWithParameters(sp, parameters, function (err, result) {
-                        var resultdata = {};
-                        if (result) {
-                            var dataresult = {};
-                            if (result.recordset[0].issuccess) {
-                                dataresult = {
-                                    status: 200,
-                                    message: "OK",
-
-                                    data: result.recordset[0]
-                                }
-                            } else {
-                                dataresult = {
-                                    status: 401,
-                                    message: "Unauthorized user",
-                                    data: result.recordset[0]
-                                }
-                            }
-                            res.send(dataresult);
-                        } else {
-                            res.send(error.errorMessage);
-                        }
-                    });
-                    //}
-                });
-
-            } else {
-                dataresult = {
-                    status: 401,
-                    message: "Unauthorized user"
-                }
-                res.send(dataresult);
-            }
-
-        } else {
-            res.send(error.errorMessage);
-        }
-    });
-
-
-
-
-    //---
+{
+// 	"openapi": "3.0.1",
+// 	"info": {
+// 		"title": "defaultTitle",
+// 		"description": "defaultDescription",
+// 		"version": "0.1"
+// 	},
+// 	"servers": [
+// 		{
+// 			"url": "http://localhost:3008"
+// 		}
+// 	],
+// 	"paths": {
+// 		"/rate": {
+// 			"post": {
+// 				"description": "Auto generated using Swagger Inspector",
+// 				"requestBody": {
+// 					"content": {
+// 						"application/json": {
+// 							"schema": {
+// 								"type": "object",
+// 								"properties": {
+// 									"ratingbyuserid": {
+// 										"type": "string"
+// 									},
+// 									"rating": {
+// 										"type": "integer"
+// 									},
+// 									"description": {
+// 										"type": "string"
+// 									},
+// 									"ratingtouserid": {
+// 										"type": "string"
+// 									}
+// 								}
+// 							},
+// 							"examples": {
+// 								"0": {
+// 									"value": "{\r\n            \"ratingbyuserid\": \"1\",\r\n            \"ratingtouserid\": \"2\",\r\n            \"rating\": 1,\r\n            \"description\": \"123\"\r\n        }"
+// 								}
+// 							}
+// 						}
+// 					}
+// 				},
+// 				"responses": {
+// 					"200": {
+// 						"description": "Auto generated using Swagger Inspector",
+// 						"content": {
+// 							"application/json; charset=utf-8": {
+// 								"schema": {
+// 									"type": "string"
+// 								},
+// 								"examples": {}
+// 							}
+// 						}
+// 					}
+// 				}
+// 			}
+// 		},
+// 		"/users/login": {
+// 			"post": {
+// 				"description": "Auto generated using Swagger Inspector",
+// 				"requestBody": {
+// 					"content": {
+// 						"application/json": {
+// 							"schema": {
+// 								"type": "object",
+// 								"properties": {
+// 									"password": {
+// 										"type": "string"
+// 									},
+// 									"name": {
+// 										"type": "string"
+// 									},
+// 									"username": {
+// 										"type": "string"
+// 									}
+// 								}
+// 							},
+// 							"examples": {
+// 								"0": {
+// 									"value": "{\r\n        \"username\": \"dharmendra\",\r\n        \"password\": \"123\",\r\n        \"name\": \"test\"\r\n        \r\n}"
+// 								}
+// 							}
+// 						}
+// 					}
+// 				},
+// 				"responses": {
+// 					"200": {
+// 						"description": "Auto generated using Swagger Inspector",
+// 						"content": {
+// 							"application/json; charset=utf-8": {
+// 								"schema": {
+// 									"type": "string"
+// 								},
+// 								"examples": {}
+// 							}
+// 						}
+// 					}
+// 				}
+// 			}
+//         }
+//     }
+// }
 
 
-});
+// // const Job = require('../models/job.model.js');
+// // const Constant = require('../global/constant.js');
 
-//=========================================================================
+// // exports.getAllJobsOfUser = (req, res) => {
+// //     try {
+// //         Job.find({
+// //             created_at: {
+// //                 $gte:ISODate(req.body.startdate),
+// //                 $lt: ISODate(req.body.enddate)
+// //             },
+// //             jobto_userid: req.body._id
+// //         }, function (error, docs) {
+// //                 const Response = {
+// //                     status: 201,
+// //                     data: docs
+// //                 }
+// //                 res.send(Response);
+// //         });
+// //     } catch (error) {
+// //         res.status(500).send({
+// //             message: error.message
+// //         });
+// //     }
+// // }
 
-CREATE PROCEDURE [dbo].[sp_getfirebaseToken]
-@ecode nvarchar(10),
-@password nvarchar(50)
-AS
-BEGIN
-	SET NOCOUNT ON;
-	IF EXISTS (SELECT top 1 1 from tblusers WHERE ecode = @ecode AND password = @password and isactive = 1 )
-	BEGIN
-		SELECT  top 1
 
-       STUFF((SELECT ', ' + CAST(firebasetoken AS NVARCHAR(MAX) )
+// // exports.getJobsOfUserByStatus = (req, res) => {
+// //     try {
+// //         Job.find({
+// //             created_at: {
+// //                 $gte:ISODate(req.body.startdate),
+// //                 $lt: ISODate(req.body.enddate)
+// //             },
+// //             jobto_userid: req.body._id,
+// //             jobstatus: req.body.status
+// //         }, function (error, docs) {
+// //                 const Response = {
+// //                     status: 201,
+// //                     data: docs
+// //                 }
+// //                 res.send(Response);
+// //         });
+// //     } catch (error) {
+// //         res.status(500).send({
+// //             message: error.message
+// //         });
+// //     }
+// // }
 
-         FROM tbllogin where firebasetoken is NOT NULL
-
-         FOR XML PATH(''), TYPE)
-
-        .value('.','NVARCHAR(MAX)'),1,2,' ') List_Output
-
-FROM tbllogin
---STUFF((SELECT ', ' +''''+ CAST(firebasetoken AS NVARCHAR(MAX) )+'''' 
-	END
-END
-//=========================================================================
-
-CREATE TABLE [dbo].[tblfirebasetoken](
-	[id] [int] IDENTITY(1,1) NOT NULL,
-	[firebasetoken] [nvarchar](max) NULL
-	)
-//==========================================================================
-
-CREATE PROCEDURE [dbo].[sp_addFirebasetoken]
-
-@firebasetoken nvarchar(MAX)
-
-AS
-
-BEGIN
-
-	SET NOCOUNT ON;
-
-	Insert into tblfirebasetoken (firebasetoken) values( @firebasetoken)
-
-END
-
-//==========================================================================
+// // exports.getUserById = (req, res) => {
+// //     try {
+// //         User.findOne({
+// //             _id: req.params.id
+// //         }, function (error, docs) {
+// //             var date = new Date();
+// //             var lastDate = new Date(docs.createdAt)
+// //             var dateWeeks = [];
+// //             var i = 1;
+// //             for (var d = lastDate; d <= date; d.setDate(d.getDate() + 6)) {
+// //                 var datefrom = new Date(d);
+// //                 var dateto = new Date(datefrom.setDate(datefrom.getDate() + 6))
+// //                 var week = {
+// //                     week: i,
+// //                     datefrom: datefrom,
+// //                     dateTo: dateto
+// //                 }
+// //                 i++
+// //                 dateWeeks.push(week);
+// //             }
+// //             const Response = {
+// //                 status: 201,
+// //                 userdata: docs,
+// //                 Weeks: dateWeeks
+// //             }
+// //             res.send(Response);
+// //         });
+// //     } catch (error) {
+// //         res.status(500).send({
+// //             message: error.message
+// //         });
+// //     }
+// // }
 
 
