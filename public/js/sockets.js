@@ -1,10 +1,8 @@
 var socket = io.connect('http://localhost:3333');
 
 function init() {
-    $("#tblDetails").addClass('hidecls');
-    $(".alertMessage").addClass('showcls');
+    connectDeviceScreen();
     SocketsConnection();
-    $(".btntooltip").tooltip();
     //GetPortData();
     //getVersions();
 }
@@ -39,31 +37,21 @@ function getVersions() {
 
 function SocketsConnection() {
     socket.on('deviceaddresponse', function (data) {
-        $("#" + data.devicedata.id).remove();
-        $("#tblDetails").removeClass('hidecls');
-        $(".alertMessage").addClass('hidecls');
-        $(".loadercls").addClass('hidecls');
-        var htmlData = `<tr id="${data.devicedata.id}" class="device-tr">
-        <td colspan="10">
-        <img src='./public/images/30.gif'/><br/>
-        Loading Device...
-        </td>
-        </tr>`
-        $("#tblbodyDetails").append(htmlData)
+        scanDeviceScreen();
         socket.emit("installApk", data.devicedata.id);
     });
 
     socket.on('deviceaddresponseAgain', function (data) {
+        scanDeviceScreen();
         socket.emit("installApk", data.devicedata.id);
     });
 
     socket.on('deviceremoveresponse', function (data) {
-        $("#" + data).remove();
-        alert('Device Removed..');
+        connectDeviceScreen();
     });
 
     socket.on('deviceremoveresponse2', function (data) {
-        //alert(data);
+        connectDeviceScreen();
     });
 
     socket.on('devicetryBack', function (data) {
@@ -71,11 +59,21 @@ function SocketsConnection() {
     });
 
     socket.on('SingleEraseDataResponse', function (data) {
-        $("#devicedelete").removeClass("spnHide");
-        $("#spn" + data).removeClass("spnHide");
-        $("#" + data).addClass("reduceOpacity");
-        console.log(data);
-
+        var message = `
+        <ul>
+                  <li>C</li>
+                  <li>O</li>
+                  <li>M</li>
+                  <li>P</li>
+                  <li>L</li>
+                  <li>E</li>
+                  <li>T</li>
+                  <li>E</li>
+                  
+                </ul>
+        `
+        $("#percentcomplete").html("100");
+        $("#spnloader").html(message);
     });
 
     socket.on('SingleEraseDataError', function (data) {
@@ -85,9 +83,10 @@ function SocketsConnection() {
     socket.on('deviceDataResult', function (data) {
         console.log(data);
         try {
-            $("#tblDetails").removeClass('hidecls');
-            $(".alertMessage").addClass('hidecls');
-            $(".overlayloader").addClass('hidecls');
+
+            // $("#tblDetails").removeClass('hidecls');
+            // $(".alertMessage").addClass('hidecls');
+            // $(".overlayloader").addClass('hidecls');
             var _splitResult = data.split('&');
             console.log(_splitResult);
             var strData = _splitResult[0].toString().replace('"{', '{') //_splitResult[0].substr(1, _splitResult[0].length - 3);
@@ -95,7 +94,7 @@ function SocketsConnection() {
             var result = JSON.parse(strData);
             console.log(result);
             result.deviceId = _splitResult[1];
-
+            var percentStorage = ((result.occupied / result.storage) * 100).toFixed(2);
             var freepercent = parseFloat(result.free) / parseFloat(result.storage);
 
             if (parseFloat(result.free) > 1024) {
@@ -144,27 +143,23 @@ function SocketsConnection() {
                 card = "./public/images/right.png";
                 cardcolor = "green";
             }
-            var data =
-                //`<tr>
-                `<td id="spn${result.deviceId}" class="spnHide">
-                <img src="./public/images/right.png" style="width:30px;height:30px;"/>
-                </td>
-                <td>${result.model}</td>
-                    <td> ${result.serial} 
-                </td>
-                    <td>${result.storage}</td>
-                    <td><meter value="${freepercent}" max="1">${freepercent}%</meter><br/> ${result.free} </td>
-                    <td><meter value="${occupiedpercent}" max="1">${occupiedpercent}%</meter><br/> ${result.occupied}</td>
-                    <td>
-                    <img src="${rooted}" style="width:30px;height:30px;"/>
-                    </td>
-                    <td>
-                    <img src="${card}" style="width:30px;height:30px;"/>
-                    </td>`;
-
-            //</tr>`;
-            $("#" + result.deviceId).empty();
-            $("#" + result.deviceId).append(data);
+            dataModel = {
+                modelnumber: result.model,
+                androidversion: result.android_version,
+                serialnumber: result.serial,
+                lblstorage: result.storage,
+                lblpower: result.power + "%",
+                prgpower: result.power + "%",
+                prgstorage: percentStorage + "%",
+                storagePercent: parseInt(percentStorage),
+                audiospace: result.audiospace,
+                appsCount: result.appsCount,
+                contactCount: result.contactCount,
+                imagespace: result.imagespace,
+                videospace: result.videospace,
+                messageCount: result.messageCount
+            };
+            mainScreen(dataModel);
 
         } catch (err) {
             alert(err);
@@ -174,6 +169,33 @@ function SocketsConnection() {
 }
 
 function EraseData() {
+    var message = `
+        <ul>
+                  <li>E</li>
+                  <li>R</li>
+                  <li>A</li>
+                  <li>S</li>
+                  <li>I</li>
+                  <li>N</li>
+                  <li>G</li>
+                  
+                </ul>
+        `
+    $("#spnloader").html(message);
     socket.emit("MultiEraseData", 1);
 }
+
+function redirectDevcieMainScreen() {
+    $(".clstab").removeClass("active");
+    $("#tabDeviceInfo").addClass("active");
+    console.log(dataModel);
+    mainScreen(dataModel);
+}
+
+function redirectDevcieStorageScreen() {
+    $(".clstab").removeClass("active");
+    $("#tabDeviceStorage").addClass("active");
+    deviceStorageScreen(dataModel);
+}
+
 window.addEventListener("load", init, false);

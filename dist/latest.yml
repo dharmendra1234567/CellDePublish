@@ -1,8 +1,8 @@
-version: 1.3.8
+version: 1.4.6
 files:
-  - url: DataErasser-Setup-1.3.8.exe
-    sha512: wXPvCmudyyw8Kq5sTEVXbG48m9rLmcY2CyQoz6/jMA+wdCP/B5zXRZgmJCOiyCURaF9ql3N8ZIzYllEOyP373Q==
-    size: 46738532
-path: DataErasser-Setup-1.3.8.exe
-sha512: wXPvCmudyyw8Kq5sTEVXbG48m9rLmcY2CyQoz6/jMA+wdCP/B5zXRZgmJCOiyCURaF9ql3N8ZIzYllEOyP373Q==
-releaseDate: '2018-11-26T13:01:21.042Z'
+  - url: DataErasser-Setup-1.4.6.exe
+    sha512: ls9CQkNWdlNpKe+QmpShHqfhMJTYgy5+2QfW6eWnFhYEVB6kEM+HClB/3+XtlNUXwWKbJp/GTE8kaZT2+9mW4A==
+    size: 40513276
+path: DataErasser-Setup-1.4.6.exe
+sha512: ls9CQkNWdlNpKe+QmpShHqfhMJTYgy5+2QfW6eWnFhYEVB6kEM+HClB/3+XtlNUXwWKbJp/GTE8kaZT2+9mW4A==
+releaseDate: '2018-11-29T09:55:23.523Z'

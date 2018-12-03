@@ -52,7 +52,7 @@ require('./server');
 let mainWindow
 function createWindow () {
   Menu.setApplicationMenu(null);
-  mainWindow = new BrowserWindow({width: 900, height: 700, resizable: false,  frame: false})
+  mainWindow = new BrowserWindow({width: 1000, height: 710, resizable: false,  frame: false})
   mainWindow.loadFile('index.html');
   //mainWindow.webContents.openDevTools();
   autoUpdater.checkForUpdatesAndNotify();
