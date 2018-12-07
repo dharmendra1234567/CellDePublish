@@ -12,6 +12,16 @@
   <link rel="stylesheet" href="./public/css/micons.css">
   <link rel="stylesheet" href="./public/css/AdminLTE.min.css">
   <link rel="stylesheet" href="./public/css/skins/skin-blue.css">
+  <style>
+  .clstab{
+    cursor: pointer;
+  }
+
+  .main-header .logo .logo-lg #svgColor {
+      fill: #00C1FF;
+      stroke: #00C1FF;
+}
+  </style>
 </head>
 <body class="hold-transition skin-blue fixed sidebar-mini sidebar-disable">
   <div class="wrapper">
@@ -140,23 +150,35 @@
       </div>
     </div>
   </div>
+
+  <div id="myModal" class="modal info fade" role="dialog">
+    <div class="modal-dialog">
+      <div class="modal-content">      
+        <div class="modal-body">
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <img src="./public/images/enable_dev.gif" width="300" alt="">
+        </div>      
+      </div>
+  
+    </div>
+  </div>
   <script>
     window.$ = window.jQuery = require('./public/js/jquery.min.js');
     const { ipcRenderer } = require('electron');
     ipcRenderer.on('message', function (event, text) {
-      debugger;
-      $('#updateModel').modal({
-        keyboard: false
-      });
-      $('#updateModel').modal('show');
-      if (text == "108") {
-        $("#mtrDownload").val(100);
-        $("#spnMessagedownloading").html("Downloading Completed. Restart the Application to Apply Updates.");
-      }
-      else {
-        var data = parseInt(text)
-        $("#mtrDownload").val(data);
-      }
+      // debugger;
+      // $('#updateModel').modal({
+      //   keyboard: false
+      // });
+      // $('#updateModel').modal('show');
+      // if (text == "108") {
+      //   $("#mtrDownload").val(100);
+      //   $("#spnMessagedownloading").html("Downloading Completed. Restart the Application to Apply Updates.");
+      // }
+      // else {
+      //   var data = parseInt(text)
+      //   $("#mtrDownload").val(data);
+      // }
     })
     const { BrowserWindow } = require('electron').remote
     $("#min-btn").click(function () {
@@ -171,7 +193,7 @@
     })
   </script>
   <script src="./public/js/jquery.min.js"></script>
-  <!-- <script src="./public/js/bootstrap.min.js"></script> -->
+  <script src="./public/js/bootstrap.min.js"></script>
   <script src="./public/js/socket.io.js"></script>
   <script src="./public/js/sockets.js"></script>
   <script src="./public/js/eraser.js"></script>

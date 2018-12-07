@@ -76,7 +76,7 @@ function deviceStorageScreen(dataModel) {
                   <span class="info-box-icon bg-dark"><i class="fa fa-address-card-o"></i></span>
                   <div class="info-box-content">
                     <span class="info-box-text">Contacts</span>
-                    <span class="info-box-number">200</span>
+                    <span class="info-box-number">${dataModel.contactCount}</span>
                   </div>
                 </div>
               </div>
@@ -87,7 +87,7 @@ function deviceStorageScreen(dataModel) {
                   <span class="info-box-icon bg-dark"><i class="la la-cubes"></i></span>
                   <div class="info-box-content">
                     <span class="info-box-text">Apps</span>
-                    <span class="info-box-number">25</span>
+                    <span class="info-box-number">${dataModel.appsCount}</span>
                   </div>
                 </div>
               </div>
@@ -100,7 +100,7 @@ function deviceStorageScreen(dataModel) {
                     <span class="info-box-icon bg-dark"><i class="la la-photo"></i></span>
                     <div class="info-box-content">
                       <span class="info-box-text">Photos</span>
-                      <span class="info-box-number">10</span>
+                      <span class="info-box-number">${dataModel.imagespace}</span>
                     </div>
                   </div>
                 </div>
@@ -111,7 +111,7 @@ function deviceStorageScreen(dataModel) {
                     <span class="info-box-icon bg-dark"><i class="la la-file-video-o"></i></span>
                     <div class="info-box-content">
                       <span class="info-box-text">Videos</span>
-                      <span class="info-box-number">250</span>
+                      <span class="info-box-number">${dataModel.videospace}</span>
                     </div>
                   </div>
                 </div>
@@ -124,7 +124,7 @@ function deviceStorageScreen(dataModel) {
                       <span class="info-box-icon bg-dark"><i class="la la-music"></i></span>
                       <div class="info-box-content">
                         <span class="info-box-text">Songs</span>
-                        <span class="info-box-number">20</span>
+                        <span class="info-box-number">${dataModel.audiospace}</span>
                       </div>
                     </div>
                   </div>
@@ -148,7 +148,7 @@ function deviceStorageScreen(dataModel) {
                         <span class="info-box-icon bg-dark"><i class="la la-comments"></i></span>
                         <div class="info-box-content">
                           <span class="info-box-text">Messages</span>
-                          <span class="info-box-number">20</span>
+                          <span class="info-box-number">${dataModel.messageCount}</span>
                         </div>
                       </div>
                     </div>
@@ -159,7 +159,7 @@ function deviceStorageScreen(dataModel) {
                         <span class="info-box-icon bg-dark"><i class="la la-repeat"></i></span>
                         <div class="info-box-content">
                           <span class="info-box-text">Cache</span>
-                          <span class="info-box-number">250 mb</span>
+                          <span class="info-box-number">${dataModel.cacheSize}</span>
                         </div>
                       </div>
                     </div>

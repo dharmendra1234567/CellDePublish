@@ -43,7 +43,7 @@ var template = `
           <circle class="st5" cx="500" cy="500" r="430.1" style="filter:url(#sofGlow)"/>
           
         </svg>
-      <abbr>54<small>%</small></abbr>
+      <abbr></abbr>
         <span>
             <ul>                      
                 <li>S</li>

@@ -249,8 +249,8 @@ a:hover,a:active,a:focus{
     margin: 10px 0 0 0;
 }
 .main-header .logo .logo-lg #svgColor {
-    fill:#384F73;
-    stroke:#17BEF4;
+    fill:#00C1FF;
+    stroke:#00C1FF;
     fill-opacity: 0;
     stroke-dasharray: 1000;
     stroke-dashoffset: 1000;
@@ -4985,7 +4985,7 @@ table.text-center,table.text-center td,table.text-center th{
 .grabber .info-box-icon i.fa {
     font-size: 35px;
     line-height: 68px;
-    +display: block;
+    display: block;
 }
 .skin-blue .main-header .navbar .nav > li > a {
     color: #5071a4!important;
@@ -4993,6 +4993,56 @@ table.text-center,table.text-center td,table.text-center th{
 .skin-blue .main-header .navbar .nav > li > a:hover {
     color: #f0f0f0!important;
 }
-.clstab {
+.usb-info {
+    position: absolute;
+    right: 20px;
+    top: 35px;
+    font-size: 32px;
+    color: #00C1FF;
     cursor: pointer;
+}
+.info.tooltip {
+    -webkit-animation: anim-tooltip 3s;    
+    -webkit-animation-iteration-count: infinite;
+    animation: anim-tooltip 3s;    
+    animation-iteration-count: infinite;
+}
+.info .tooltip-inner {
+    background-color: #00C1FF;
+    color: #000;
+    font-size: 16px;
+    white-space: nowrap;
+    max-width: none;
+}
+.info.tooltip.right .tooltip-arrow {
+    border-right-color: #00C1FF;
+}
+
+@keyframes anim-tooltip {
+    0% { margin-left: 0;}
+    50%{ margin-left: 20px;}
+    100%{ margin-left: 0;}
+}
+.info.modal .modal-dialog {
+    width: auto;
+    display: table;
+    overflow: hidden;
+    border-radius: 15px;
+    margin:4em auto 0 auto;
+    border: 1px solid #00C1FF;
+    background: #192231;
+}
+.info.modal .modal-content {
+    background: none;
+}
+.info.modal .modal-body {
+    padding:25px 10px 25px 10px;
+}
+.info.modal .modal-body .close {
+    position: absolute;
+    top: 2px;
+    right: 10px;
+    opacity: 1;
+    color: #00C1FF;
+    text-shadow: none;
 }

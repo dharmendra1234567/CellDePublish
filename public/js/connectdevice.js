@@ -26,7 +26,7 @@ var template = `
               </ul>
           </span>
           <span>
-            <ul>
+             <ul>
               <li>D</li>
               <li>E</li>
               <li>V</li>
@@ -57,6 +57,7 @@ var template = `
           </svg>
           
         </div>
+        <i class="la la-info-circle usb-info" data-toggle="modal" data-target="#myModal" title="How to enable usb debugging" data-placement="right"></i>
       <img src="./public/images/connector.svg" class="connector" alt="">            
   </div>
 
@@ -65,9 +66,15 @@ var template = `
 
 </section>
 
+
+
 `
 $("body").addClass('sidebar-disable');
 $("#mainContent").empty();
 $("#mainContent").html(template);
-
+setTimeout(() => {
+$('.usb-info').tooltip({
+  template: '<div class="tooltip info"><div class="tooltip-arrow"></div><div class="tooltip-inner"></div></div>'
+}).tooltip('show');
+},500);
 }

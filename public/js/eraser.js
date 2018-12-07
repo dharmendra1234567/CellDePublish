@@ -55,7 +55,7 @@ var template = `
                 </ul>
               </span>
             </div>
-            <img src="./public/images/iphone.svg" class="iPhone" alt="">
+            <img src="./public/images/android.svg" class="iPhone" alt="">
             <div class="action">
               <button class="fuller-button blue" onclick="EraseData()">Erase</button>
             </div>

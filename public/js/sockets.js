@@ -40,6 +40,11 @@ function SocketsConnection() {
         scanDeviceScreen();
         socket.emit("installApk", data.devicedata.id);
     });
+    socket.on('deviceaddScanningresponse', function (data) {
+        scanDeviceScreen();
+      //  socket.emit("installApk", data.devicedata.id);
+    });
+    
 
     socket.on('deviceaddresponseAgain', function (data) {
         scanDeviceScreen();
@@ -51,8 +56,14 @@ function SocketsConnection() {
     });
 
     socket.on('deviceremoveresponse2', function (data) {
-        connectDeviceScreen();
+       //  alert(data);
+       // connectDeviceScreen();
     });
+
+    socket.on('InstallError', function (data) {
+        alert(data);
+        // connectDeviceScreen();
+     });
 
     socket.on('devicetryBack', function (data) {
         socket.emit("devicetryBackData", data);
@@ -104,20 +115,35 @@ function SocketsConnection() {
             } else {
                 result.free = result.free + " MB";
             }
-            var videopercent = parseFloat(result.videoSize) / parseFloat(result.totalSpace);
-            if (parseFloat(result.videoSize) > 1024) {
+            var videopercent = parseFloat(result.videospace) / parseFloat(result.storage);
+            if (parseFloat(result.videospace) > 1024) {
 
-                result.videoSize = (parseFloat(result.videoSize) / 1024).toFixed(2) + " GB";
+                result.videospace = (parseFloat(result.videospace) / 1024).toFixed(2) + " GB";
             } else {
-                result.videoSize = result.videoSize + " MB";
+                result.videospace = result.videospace + " MB";
             }
-            var audiopercent = parseFloat(result.audioSize) / parseFloat(result.totalSpace);
-            if (parseFloat(result.audioSize) > 1024) {
 
-                result.audioSize = (parseFloat(result.audioSize) / 1024).toFixed(2) + " GB";
+            if (parseFloat(result.cacheSize) > 1024) {
+
+                result.cacheSize = (parseFloat(result.cacheSize) / 1024).toFixed(2) + " GB";
             } else {
-                result.audioSize = result.audioSize + " MB";
+                result.cacheSize = result.cacheSize + " MB";
             }
+            var audiopercent = parseFloat(result.audiospace) / parseFloat(result.totalSpace);
+            if (parseFloat(result.audiospace) > 1024) {
+
+                result.audiospace = (parseFloat(result.audiospace) / 1024).toFixed(2) + " GB";
+            } else {
+                result.audiospace = result.audiospace + " MB";
+            }
+
+            if (parseFloat(result.imagespace) > 1024) {
+
+                result.imagespace = (parseFloat(result.imagespace) / 1024).toFixed(2) + " GB";
+            } else {
+                result.imagespace = result.imagespace + " MB";
+            }
+
             var occupiedpercent = parseFloat(result.occupied) / parseFloat(result.storage);
             if (parseFloat(result.occupied) > 1024) {
                 result.occupied = (parseFloat(result.occupied) / 1024).toFixed(2) + " GB";
@@ -157,7 +183,9 @@ function SocketsConnection() {
                 contactCount: result.contactCount,
                 imagespace: result.imagespace,
                 videospace: result.videospace,
-                messageCount: result.messageCount
+                messageCount: result.messageCount,
+                appsCount: result.appsCount.length,
+                cacheSize: result.cacheSize
             };
             mainScreen(dataModel);
 
